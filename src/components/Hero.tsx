@@ -1,12 +1,28 @@
 
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const phoneNumber = "0534703003";
+  const message = "שלום, אני מעוניין לשיחת ייעוץ חינם";
+  
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+  useEffect(() => {
+    // Trigger animation after component mounts
+    setIsVisible(true);
+  }, []);
+
+  const handlePortfolioClick = () => {
+    document.getElementById("portfolio")?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="bg-gradient-to-r from-blue-50 to-teal-50 py-20 lg:py-32">
       <div className="container-padded">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="order-2 md:order-1">
+          <div className={`order-2 md:order-1 transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 leading-tight">
               פתרונות <span className="gradient-text">דיגיטליים</span> מתקדמים שעובדים
             </h1>
@@ -14,17 +30,28 @@ const Hero = () => {
               בניית אתרי אינטרנט מרהיבים, אפליקציות מתקדמות ודפי נחיתה ממירים שמניעים תוצאות עסקיות אמיתיות
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="btn-primary">לשיחת ייעוץ חינם</Button>
-              <Button className="btn-secondary">צפה בעבודות</Button>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <Button className="btn-primary hover:scale-105 transition-all">לשיחת ייעוץ חינם</Button>
+              </a>
+              <Button 
+                className="btn-secondary hover:scale-105 transition-all" 
+                onClick={handlePortfolioClick}
+              >
+                צפה בעבודות
+              </Button>
             </div>
           </div>
-          <div className="order-1 md:order-2 flex justify-center">
+          <div className={`order-1 md:order-2 flex justify-center transition-all duration-700 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
             <div className="relative">
-              <div className="absolute -inset-1 bg-gradient-hero rounded-xl blur-xl opacity-30"></div>
+              <div className="absolute -inset-1 bg-gradient-hero rounded-xl blur-xl opacity-30 animate-pulse"></div>
               <img 
                 src="/lovable-uploads/5d8be59e-eb75-4508-9417-94e08069e4e7.png" 
                 alt="טאקו דיגיטל - פתרונות דיגיטליים מתקדמים" 
                 className="relative max-w-xs rounded-xl w-full object-contain mx-auto"
+                style={{ 
+                  filter: "drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15))",
+                  background: "transparent" 
+                }}
               />
             </div>
           </div>
