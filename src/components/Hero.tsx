@@ -22,9 +22,9 @@ const Hero = () => {
             <div className="relative">
               <div className="absolute -inset-1 bg-gradient-hero rounded-xl blur-xl opacity-30"></div>
               <img 
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158" 
+                src="/lovable-uploads/5d8be59e-eb75-4508-9417-94e08069e4e7.png" 
                 alt="טאקו דיגיטל - פתרונות דיגיטליים מתקדמים" 
-                className="relative rounded-xl shadow-2xl w-full max-w-md mx-auto object-cover"
+                className="relative max-w-xs rounded-xl w-full object-contain mx-auto"
               />
             </div>
           </div>

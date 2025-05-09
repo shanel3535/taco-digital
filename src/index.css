@@ -62,6 +62,29 @@
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading font-bold;
   }
+
+  /* Accessibility Classes */
+  .high-contrast {
+    filter: contrast(1.5);
+    background: #000 !important;
+    color: #fff !important;
+  }
+
+  .high-contrast * {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #fff !important;
+  }
+
+  .high-contrast a, .high-contrast button {
+    background: #000 !important;
+    color: #ffff00 !important;
+    border: 2px solid #ffff00 !important;
+  }
+
+  .grayscale {
+    filter: grayscale(1);
+  }
 }
 
 @layer components {

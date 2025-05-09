@@ -7,6 +7,8 @@ import Portfolio from "@/components/Portfolio";
 import CTA from "@/components/CTA";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import WhatsappButton from "@/components/WhatsappButton";
+import Accessibility from "@/components/Accessibility";
 
 const Index = () => {
   return (
@@ -19,6 +21,8 @@ const Index = () => {
       <CTA />
       <ContactSection />
       <Footer />
+      <WhatsappButton />
+      <Accessibility />
     </div>
   );
 };
