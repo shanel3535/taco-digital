@@ -29,20 +29,29 @@ const Index = () => {
             entry.target.classList.add('animate-fade-in-up');
           } else if (index % 3 === 1) {
             entry.target.classList.add('animate-fade-in');
-            entry.target.style.animationDuration = '1s';
+            // Fix: Cast to HTMLElement to access style
+            if (entry.target instanceof HTMLElement) {
+              entry.target.style.animationDuration = '1s';
+            }
           } else {
             entry.target.classList.add('animate-fade-in-up');
-            entry.target.style.animationDelay = '0.2s';
+            // Fix: Cast to HTMLElement to access style
+            if (entry.target instanceof HTMLElement) {
+              entry.target.style.animationDelay = '0.2s';
+            }
           }
           
-          // Add animation to children elements
+          // Add animation to children elements with type checking
           const children = entry.target.querySelectorAll('h2, p, .service-card, .benefit-item, .portfolio-item');
           children.forEach((child, i) => {
             child.classList.add('opacity-0');
             setTimeout(() => {
               child.classList.remove('opacity-0');
               child.classList.add('animate-fade-in-up');
-              child.style.animationDelay = `${i * 0.15}s`;
+              // Fix: Cast to HTMLElement to access style
+              if (child instanceof HTMLElement) {
+                child.style.animationDelay = `${i * 0.15}s`;
+              }
             }, 300);
           });
           
@@ -62,7 +71,7 @@ const Index = () => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const headerBg = document.querySelector('.hero-section');
-      if (headerBg) {
+      if (headerBg && headerBg instanceof HTMLElement) {
         headerBg.style.backgroundPosition = `50% ${scrollPosition * 0.05}px`;
       }
     };
@@ -84,11 +93,12 @@ const Index = () => {
     
     const floatAnimation = () => {
       floatingElements.forEach((el, index) => {
-        const element = el as HTMLElement;
-        const time = Date.now() * 0.001 + index * 1.5;
-        const y = Math.sin(time) * 8;
-        
-        element.style.transform = `translateY(${y}px)`;
+        if (el instanceof HTMLElement) {
+          const time = Date.now() * 0.001 + index * 1.5;
+          const y = Math.sin(time) * 8;
+          
+          el.style.transform = `translateY(${y}px)`;
+        }
       });
       
       requestAnimationFrame(floatAnimation);

@@ -45,12 +45,11 @@ const Hero = () => {
             <div className="relative">
               <div className="absolute -inset-1 bg-gradient-hero rounded-xl blur-xl opacity-30 animate-pulse"></div>
               <img 
-                src="/lovable-uploads/72a97398-c951-4577-92d0-acc44a48465e.png" 
+                src="/lovable-uploads/2a3e2458-35d5-40f2-b735-e86c6f388312.png" 
                 alt="טאקו דיגיטל - פתרונות דיגיטליים מתקדמים" 
-                className="relative max-w-xs rounded-xl w-full object-contain mx-auto animate-float"
+                className="relative w-64 h-64 object-contain mx-auto animate-float"
                 style={{ 
-                  filter: "drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15))",
-                  background: "transparent" 
+                  filter: "drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.15))"
                 }}
               />
             </div>
