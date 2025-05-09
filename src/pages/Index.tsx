@@ -22,23 +22,82 @@ const Index = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in-up');
+          // Add different animation classes based on index for variety
+          const index = Array.from(document.querySelectorAll('section')).indexOf(entry.target);
+          
+          if (index % 3 === 0) {
+            entry.target.classList.add('animate-fade-in-up');
+          } else if (index % 3 === 1) {
+            entry.target.classList.add('animate-fade-in');
+            entry.target.style.animationDuration = '1s';
+          } else {
+            entry.target.classList.add('animate-fade-in-up');
+            entry.target.style.animationDelay = '0.2s';
+          }
+          
+          // Add animation to children elements
+          const children = entry.target.querySelectorAll('h2, p, .service-card, .benefit-item, .portfolio-item');
+          children.forEach((child, i) => {
+            child.classList.add('opacity-0');
+            setTimeout(() => {
+              child.classList.remove('opacity-0');
+              child.classList.add('animate-fade-in-up');
+              child.style.animationDelay = `${i * 0.15}s`;
+            }, 300);
+          });
+          
           observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
     
-    // Observe all sections
+    // Observe all sections except hero
     const sections = document.querySelectorAll('section:not(.hero-section)');
     sections.forEach(section => {
       section.classList.add('opacity-0');
       observer.observe(section);
     });
     
+    // Add scroll animations for background parallax effect
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const headerBg = document.querySelector('.hero-section');
+      if (headerBg) {
+        headerBg.style.backgroundPosition = `50% ${scrollPosition * 0.05}px`;
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
     return () => {
       sections.forEach(section => {
         observer.unobserve(section);
       });
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Add animation for floating elements
+  useEffect(() => {
+    // Apply a floating animation to certain elements
+    const floatingElements = document.querySelectorAll('.animate-float');
+    
+    const floatAnimation = () => {
+      floatingElements.forEach((el, index) => {
+        const element = el as HTMLElement;
+        const time = Date.now() * 0.001 + index * 1.5;
+        const y = Math.sin(time) * 8;
+        
+        element.style.transform = `translateY(${y}px)`;
+      });
+      
+      requestAnimationFrame(floatAnimation);
+    };
+    
+    const animationFrame = requestAnimationFrame(floatAnimation);
+    
+    return () => {
+      cancelAnimationFrame(animationFrame);
     };
   }, []);
 
