@@ -195,8 +195,31 @@ const Accessibility = () => {
   const applyAnimations = (enabled: boolean) => {
     if (!enabled) {
       document.body.classList.add("reduce-motion");
+      
+      // Force update of any active animations and floating elements
+      const floatingElements = document.querySelectorAll('.animate-float');
+      floatingElements.forEach((el) => {
+        if (el instanceof HTMLElement) {
+          el.style.transform = 'none';
+        }
+      });
+      
+      // Remove animation classes that might be active
+      document.querySelectorAll('.animate-fade-in, .animate-fade-in-up, .animate-pulse').forEach((el) => {
+        if (el instanceof HTMLElement) {
+          el.style.animation = 'none';
+        }
+      });
+      
     } else {
       document.body.classList.remove("reduce-motion");
+      
+      // Let animations restart naturally by removing inline styles
+      document.querySelectorAll('.animate-float, .animate-fade-in, .animate-fade-in-up, .animate-pulse').forEach((el) => {
+        if (el instanceof HTMLElement) {
+          el.style.animation = '';
+        }
+      });
     }
   };
 
@@ -313,6 +336,14 @@ const Accessibility = () => {
     document.body.style.letterSpacing = "";
     document.body.style.wordSpacing = "";
     document.body.style.lineHeight = "";
+    
+    // Also ensure animations are reset
+    document.querySelectorAll('.animate-float, .animate-fade-in, .animate-fade-in-up').forEach((el) => {
+      if (el instanceof HTMLElement) {
+        el.style.transform = '';
+        el.style.animation = '';
+      }
+    });
     
     toast({
       title: "איפוס הגדרות",

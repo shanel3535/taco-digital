@@ -22,33 +22,45 @@ const Index = () => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && entry.target instanceof HTMLElement) {
-          // Add different animation classes based on index for variety
-          const sections = Array.from(document.querySelectorAll('section'));
-          const sectionsElements = sections.filter((s): s is HTMLElement => s instanceof HTMLElement);
-          
-          if (sectionsElements.includes(entry.target)) {
-            const index = sectionsElements.indexOf(entry.target);
+          // Check if reduce-motion is enabled before adding animations
+          if (!document.body.classList.contains('reduce-motion')) {
+            // Add different animation classes based on index for variety
+            const sections = Array.from(document.querySelectorAll('section'));
+            const sectionsElements = sections.filter((s): s is HTMLElement => s instanceof HTMLElement);
             
-            if (index % 3 === 0) {
-              entry.target.classList.add('animate-fade-in-up');
-            } else if (index % 3 === 1) {
-              entry.target.classList.add('animate-fade-in');
-              entry.target.style.animationDuration = '1s';
-            } else {
-              entry.target.classList.add('animate-fade-in-up');
-              entry.target.style.animationDelay = '0.2s';
+            if (sectionsElements.includes(entry.target)) {
+              const index = sectionsElements.indexOf(entry.target);
+              
+              if (index % 3 === 0) {
+                entry.target.classList.add('animate-fade-in-up');
+              } else if (index % 3 === 1) {
+                entry.target.classList.add('animate-fade-in');
+                entry.target.style.animationDuration = '1s';
+              } else {
+                entry.target.classList.add('animate-fade-in-up');
+                entry.target.style.animationDelay = '0.2s';
+              }
+              
+              // Add animation to children elements
+              const children = entry.target.querySelectorAll('h2, p, .service-card, .benefit-item, .portfolio-item');
+              children.forEach((child, i) => {
+                if (child instanceof HTMLElement) {
+                  child.classList.add('opacity-0');
+                  setTimeout(() => {
+                    child.classList.remove('opacity-0');
+                    child.classList.add('animate-fade-in-up');
+                    child.style.animationDelay = `${i * 0.15}s`;
+                  }, 300);
+                }
+              });
             }
-            
-            // Add animation to children elements
-            const children = entry.target.querySelectorAll('h2, p, .service-card, .benefit-item, .portfolio-item');
-            children.forEach((child, i) => {
+          } else {
+            // If reduce-motion is enabled, just make elements visible without animations
+            entry.target.classList.remove('opacity-0');
+            const children = entry.target.querySelectorAll('.opacity-0');
+            children.forEach(child => {
               if (child instanceof HTMLElement) {
-                child.classList.add('opacity-0');
-                setTimeout(() => {
-                  child.classList.remove('opacity-0');
-                  child.classList.add('animate-fade-in-up');
-                  child.style.animationDelay = `${i * 0.15}s`;
-                }, 300);
+                child.classList.remove('opacity-0');
               }
             });
           }
@@ -69,10 +81,13 @@ const Index = () => {
     
     // Add scroll animations for background parallax effect
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const headerBg = document.querySelector('.hero-section');
-      if (headerBg && headerBg instanceof HTMLElement) {
-        headerBg.style.backgroundPosition = `50% ${scrollPosition * 0.05}px`;
+      // Only apply parallax if reduce-motion is not enabled
+      if (!document.body.classList.contains('reduce-motion')) {
+        const scrollPosition = window.scrollY;
+        const headerBg = document.querySelector('.hero-section');
+        if (headerBg && headerBg instanceof HTMLElement) {
+          headerBg.style.backgroundPosition = `50% ${scrollPosition * 0.05}px`;
+        }
       }
     };
     
@@ -92,21 +107,32 @@ const Index = () => {
   useEffect(() => {
     // Apply a floating animation to certain elements
     const floatingElements = document.querySelectorAll('.animate-float');
+    let animationFrame: number;
     
     const floatAnimation = () => {
-      floatingElements.forEach((el, index) => {
-        if (el instanceof HTMLElement) {
-          const time = Date.now() * 0.001 + index * 1.5;
-          const y = Math.sin(time) * 8;
-          
-          el.style.transform = `translateY(${y}px)`;
-        }
-      });
-      
-      requestAnimationFrame(floatAnimation);
+      // Only apply float animation if reduce-motion is not enabled
+      if (!document.body.classList.contains('reduce-motion')) {
+        floatingElements.forEach((el, index) => {
+          if (el instanceof HTMLElement) {
+            const time = Date.now() * 0.001 + index * 1.5;
+            const y = Math.sin(time) * 8;
+            
+            el.style.transform = `translateY(${y}px)`;
+          }
+        });
+        
+        animationFrame = requestAnimationFrame(floatAnimation);
+      } else {
+        // Reset transform for floating elements when animations are disabled
+        floatingElements.forEach((el) => {
+          if (el instanceof HTMLElement) {
+            el.style.transform = 'none';
+          }
+        });
+      }
     };
     
-    const animationFrame = requestAnimationFrame(floatAnimation);
+    animationFrame = requestAnimationFrame(floatAnimation);
     
     return () => {
       cancelAnimationFrame(animationFrame);

@@ -83,6 +83,15 @@
     border-color: #fff !important;
   }
 
+  /* Logo exception for high contrast mode */
+  .high-contrast img[alt*="טאקו דיגיטל"],
+  .high-contrast img[alt*="לוגו"],
+  .high-contrast img[src*=".png"],
+  .high-contrast img[src*=".svg"] {
+    background: transparent !important;
+    filter: invert(1) brightness(100) !important;
+  }
+
   .high-contrast a, 
   .high-contrast button,
   .high-contrast [role="button"],
@@ -110,6 +119,12 @@
   /* Grayscale mode */
   .grayscale {
     filter: grayscale(1);
+  }
+
+  /* Logo exception for grayscale mode */
+  .grayscale img[alt*="טאקו דיגיטל"],
+  .grayscale img[alt*="לוגו"] {
+    filter: none !important;
   }
   
   /* Dyslexic font mode */
