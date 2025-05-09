@@ -21,12 +21,13 @@ const Index = () => {
     
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
+        if (entry.isIntersecting && entry.target instanceof HTMLElement) {
           // Add different animation classes based on index for variety
           const sections = Array.from(document.querySelectorAll('section'));
-          // Ensure entry.target is in the sections array and is an HTMLElement
-          if (entry.target instanceof HTMLElement && sections.includes(entry.target)) {
-            const index = sections.indexOf(entry.target);
+          const sectionsElements = sections.filter((s): s is HTMLElement => s instanceof HTMLElement);
+          
+          if (sectionsElements.includes(entry.target)) {
+            const index = sectionsElements.indexOf(entry.target);
             
             if (index % 3 === 0) {
               entry.target.classList.add('animate-fade-in-up');
@@ -38,18 +39,17 @@ const Index = () => {
               entry.target.style.animationDelay = '0.2s';
             }
             
-            // Add animation to children elements with type checking
+            // Add animation to children elements
             const children = entry.target.querySelectorAll('h2, p, .service-card, .benefit-item, .portfolio-item');
             children.forEach((child, i) => {
-              child.classList.add('opacity-0');
-              setTimeout(() => {
-                child.classList.remove('opacity-0');
-                child.classList.add('animate-fade-in-up');
-                // Fix: Cast to HTMLElement to access style
-                if (child instanceof HTMLElement) {
+              if (child instanceof HTMLElement) {
+                child.classList.add('opacity-0');
+                setTimeout(() => {
+                  child.classList.remove('opacity-0');
+                  child.classList.add('animate-fade-in-up');
                   child.style.animationDelay = `${i * 0.15}s`;
-                }
-              }, 300);
+                }, 300);
+              }
             });
           }
           
@@ -80,7 +80,9 @@ const Index = () => {
     
     return () => {
       sections.forEach(section => {
-        observer.unobserve(section);
+        if (section instanceof HTMLElement) {
+          observer.unobserve(section);
+        }
       });
       window.removeEventListener('scroll', handleScroll);
     };

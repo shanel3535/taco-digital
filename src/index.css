@@ -64,6 +64,13 @@
   }
 
   /* Accessibility Classes */
+  
+  /* Skip to content link - hidden by default, visible on focus */
+  .skip-to-content {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:p-4 focus:bg-white focus:text-black focus:shadow-lg focus:rounded-md;
+  }
+  
+  /* High contrast mode */
   .high-contrast {
     filter: contrast(1.5);
     background: #000 !important;
@@ -76,23 +83,45 @@
     border-color: #fff !important;
   }
 
-  .high-contrast a, .high-contrast button {
+  .high-contrast a, 
+  .high-contrast button,
+  .high-contrast [role="button"],
+  .high-contrast [type="button"],
+  .high-contrast [type="submit"] {
     background: #000 !important;
     color: #ffff00 !important;
     border: 2px solid #ffff00 !important;
+    outline: 2px solid #ffff00 !important;
+  }
+  
+  .high-contrast input,
+  .high-contrast textarea,
+  .high-contrast select {
+    background: #000 !important;
+    color: #fff !important;
+    border: 2px solid #fff !important;
   }
 
+  .high-contrast :focus {
+    outline: 3px solid #ffff00 !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Grayscale mode */
   .grayscale {
     filter: grayscale(1);
   }
   
-  /* New Accessibility Classes */
+  /* Dyslexic font mode */
   .dyslexic-font * {
     font-family: 'Open Sans', 'Arial', sans-serif !important;
     font-weight: 500 !important;
     letter-spacing: 0.05em !important;
+    word-spacing: 0.1em !important;
+    line-height: 1.5 !important;
   }
   
+  /* Cursor size options */
   .large-cursor * {
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M4 4L20 20"/><path d="M4 20L20 4"/></svg>') 12 12, auto !important;
   }
@@ -101,19 +130,29 @@
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"><path d="M4 4L20 20"/><path d="M4 20L20 4"/></svg>') 16 16, auto !important;
   }
   
-  .reduce-motion * {
-    animation: none !important;
-    transition: none !important;
+  /* Reduce motion for animations */
+  .reduce-motion *,
+  .reduce-motion *::before,
+  .reduce-motion *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
   
+  /* Link highlighting */
   .highlight-links a {
     background-color: #ffff00 !important;
     color: #000000 !important;
     text-decoration: underline !important;
     border: 2px solid #ff0000 !important;
     padding: 0 4px !important;
+    font-weight: bold !important;
   }
   
+  /* Text alignment */
   .text-left * {
     text-align: left !important;
   }
@@ -126,15 +165,43 @@
     text-align: right !important;
   }
   
-  .focus-mode :not(:focus):not(:focus-within):not(.accessibility-menu) {
+  /* Focus mode */
+  .focus-mode :not(:focus):not(:focus-within):not(.accessibility-menu):not(#accessibility-menu *):not(.fixed):not(.skip-to-content) {
     opacity: 0.5;
     transition: opacity 0.3s;
   }
   
-  .focus-mode :focus, .focus-mode :focus-within {
+  .focus-mode :focus,
+  .focus-mode :focus-within {
     opacity: 1;
     outline: 3px solid #0080ff !important;
+    outline-offset: 2px !important;
     z-index: 2;
+  }
+  
+  /* Better form controls */
+  .accessibility-enhanced input[type="checkbox"],
+  .accessibility-enhanced input[type="radio"] {
+    min-width: 24px !important;
+    min-height: 24px !important;
+  }
+  
+  .accessibility-enhanced button,
+  .accessibility-enhanced [role="button"],
+  .accessibility-enhanced a {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+  
+  /* Accessibility button animation */
+  .accessibility-icon {
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
   }
 }
 
