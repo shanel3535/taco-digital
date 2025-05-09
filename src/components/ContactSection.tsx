@@ -47,7 +47,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="text-sm text-taco-gray">דוא"ל</p>
-                  <p className="font-medium">info@taco-digital.co.il</p>
+                  <p className="font-medium">takodigital35@gmail.com</p>
                 </div>
               </div>
               
@@ -57,7 +57,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="text-sm text-taco-gray">טלפון</p>
-                  <p className="font-medium">+972-50-123-4567</p>
+                  <p className="font-medium">+972-53-470-3003</p>
                 </div>
               </div>
             </div>

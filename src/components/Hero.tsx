@@ -45,7 +45,7 @@ const Hero = () => {
             <div className="relative">
               <div className="absolute -inset-1 bg-gradient-hero rounded-xl blur-xl opacity-30 animate-pulse"></div>
               <img 
-                src="/lovable-uploads/2a3e2458-35d5-40f2-b735-e86c6f388312.png" 
+                src="/lovable-uploads/9070e2b0-d3d1-48b5-b734-585d705c1c22.png" 
                 alt="טאקו דיגיטל - פתרונות דיגיטליים מתקדמים" 
                 className="relative w-64 h-64 object-contain mx-auto animate-float"
                 style={{ 

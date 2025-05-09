@@ -18,8 +18,12 @@ const Navigation = () => {
     <nav className="sticky top-0 bg-white/90 backdrop-blur-sm shadow-sm z-30">
       <div className="container-padded flex justify-between items-center py-4">
         {/* Logo */}
-        <a href="#" className="font-heading font-bold text-2xl text-taco-blue">
-          טאקו <span className="text-taco-orange">דיגיטל</span>
+        <a href="#" className="flex items-center">
+          <img 
+            src="/lovable-uploads/9070e2b0-d3d1-48b5-b734-585d705c1c22.png" 
+            alt="טאקו דיגיטל"
+            className="h-10 w-auto"
+          />
         </a>
         
         {/* Desktop Menu */}
