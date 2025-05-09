@@ -14,17 +14,20 @@ const Portfolio = () => {
     {
       title: "אתר חנות אונליין",
       category: "אתרי אינטרנט",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f"
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f",
+      comingSoon: true
     },
     {
       title: "אפליקציה לניהול זמן",
       category: "אפליקציות",
-      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7"
+      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
+      comingSoon: true
     },
     {
       title: "דף נחיתה למוצר טכנולוגי",
       category: "דפי נחיתה",
-      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085"
+      image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085",
+      comingSoon: true
     },
   ];
 
@@ -74,8 +77,18 @@ const Portfolio = () => {
                       צפה באתר <ExternalLink size={16} className="mr-1" />
                     </a>
                   )}
+                  {project.comingSoon && (
+                    <p className="text-taco-teal mt-3 text-sm font-medium">
+                      יעלה בקרוב
+                    </p>
+                  )}
                 </div>
               </div>
+              {project.comingSoon && (
+                <div className="absolute top-3 right-3 bg-taco-teal/90 text-white text-xs font-bold py-1 px-3 rounded-full">
+                  יעלה בקרוב
+                </div>
+              )}
             </div>
           ))}
         </div>
