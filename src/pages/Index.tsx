@@ -23,37 +23,35 @@ const Index = () => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           // Add different animation classes based on index for variety
-          const index = Array.from(document.querySelectorAll('section')).indexOf(entry.target);
-          
-          if (index % 3 === 0) {
-            entry.target.classList.add('animate-fade-in-up');
-          } else if (index % 3 === 1) {
-            entry.target.classList.add('animate-fade-in');
-            // Fix: Cast to HTMLElement to access style
-            if (entry.target instanceof HTMLElement) {
+          const sections = Array.from(document.querySelectorAll('section'));
+          // Ensure entry.target is in the sections array and is an HTMLElement
+          if (entry.target instanceof HTMLElement && sections.includes(entry.target)) {
+            const index = sections.indexOf(entry.target);
+            
+            if (index % 3 === 0) {
+              entry.target.classList.add('animate-fade-in-up');
+            } else if (index % 3 === 1) {
+              entry.target.classList.add('animate-fade-in');
               entry.target.style.animationDuration = '1s';
-            }
-          } else {
-            entry.target.classList.add('animate-fade-in-up');
-            // Fix: Cast to HTMLElement to access style
-            if (entry.target instanceof HTMLElement) {
+            } else {
+              entry.target.classList.add('animate-fade-in-up');
               entry.target.style.animationDelay = '0.2s';
             }
+            
+            // Add animation to children elements with type checking
+            const children = entry.target.querySelectorAll('h2, p, .service-card, .benefit-item, .portfolio-item');
+            children.forEach((child, i) => {
+              child.classList.add('opacity-0');
+              setTimeout(() => {
+                child.classList.remove('opacity-0');
+                child.classList.add('animate-fade-in-up');
+                // Fix: Cast to HTMLElement to access style
+                if (child instanceof HTMLElement) {
+                  child.style.animationDelay = `${i * 0.15}s`;
+                }
+              }, 300);
+            });
           }
-          
-          // Add animation to children elements with type checking
-          const children = entry.target.querySelectorAll('h2, p, .service-card, .benefit-item, .portfolio-item');
-          children.forEach((child, i) => {
-            child.classList.add('opacity-0');
-            setTimeout(() => {
-              child.classList.remove('opacity-0');
-              child.classList.add('animate-fade-in-up');
-              // Fix: Cast to HTMLElement to access style
-              if (child instanceof HTMLElement) {
-                child.style.animationDelay = `${i * 0.15}s`;
-              }
-            }, 300);
-          });
           
           observer.unobserve(entry.target);
         }
@@ -63,8 +61,10 @@ const Index = () => {
     // Observe all sections except hero
     const sections = document.querySelectorAll('section:not(.hero-section)');
     sections.forEach(section => {
-      section.classList.add('opacity-0');
-      observer.observe(section);
+      if (section instanceof HTMLElement) {
+        section.classList.add('opacity-0');
+        observer.observe(section);
+      }
     });
     
     // Add scroll animations for background parallax effect
