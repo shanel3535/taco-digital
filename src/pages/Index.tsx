@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
@@ -9,7 +8,7 @@ import CTA from "@/components/CTA";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import WhatsappButton from "@/components/WhatsappButton";
-import Accessibility from "@/components/Accessibility";
+import Accessibility from "@/components/Accessibility"; // The import path stays the same, thanks to our re-export
 
 const Index = () => {
   useEffect(() => {
