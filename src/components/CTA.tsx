@@ -6,11 +6,13 @@ const CTA = () => {
   const [isVisible, setIsVisible] = useState(false);
   const phoneNumber = "+972534703003";
   const message = "שלום, אני מעוניין לשיחת ייעוץ חינם";
+  const quoteMessage = "שלום, אני מעוניין לקבל הצעת מחיר";
   
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+  const quoteUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(quoteMessage)}`;
   
   const handleGetQuoteClick = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: 'smooth' });
+    window.open(quoteUrl, '_blank');
   };
 
   useEffect(() => {

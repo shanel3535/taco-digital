@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, Whatsapp } from "lucide-react";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +10,10 @@ const ContactSection = () => {
     phone: "",
     message: "",
   });
+  
+  const phoneNumber = "+972534703003";
+  const message = "שלום, אני מעוניין לשמוע עוד על השירותים שלכם";
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -18,9 +22,14 @@ const ContactSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Here you would typically send the data to your backend
-    alert("הודעתך נשלחה בהצלחה! נחזור אליך בהקדם.");
+    // Create WhatsApp message with form data
+    const formattedMessage = `שם: ${formData.name}\nטלפון: ${formData.phone}\nאימייל: ${formData.email}\nהודעה: ${formData.message}`;
+    const whatsappFormUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(formattedMessage)}`;
+    
+    // Open WhatsApp with the form data
+    window.open(whatsappFormUrl, '_blank');
+    
+    // Reset form
     setFormData({ name: "", email: "", phone: "", message: "" });
   };
 
@@ -60,11 +69,22 @@ const ContactSection = () => {
                   <p className="font-medium">+972-53-470-3003</p>
                 </div>
               </div>
+              
+              <div className="flex items-center gap-4 mt-4">
+                <div className="p-3 bg-green-500/10 rounded-full">
+                  <Phone className="w-6 h-6 text-green-500" />
+                </div>
+                <div>
+                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="font-medium text-green-500 hover:underline">
+                    שלח לנו הודעה בוואטסאפ
+                  </a>
+                </div>
+              </div>
             </div>
             
             <div className="mt-12">
               <h4 className="text-xl font-bold mb-4">שעות פעילות</h4>
-              <p className="text-taco-gray">ימים א'-ה': 9:00 - 18:00</p>
+              <p className="text-taco-gray">ימים א'-ה': 8:00 - 20:00</p>
               <p className="text-taco-gray">יום ו': 9:00 - 14:00</p>
             </div>
           </div>
@@ -131,7 +151,7 @@ const ContactSection = () => {
               </div>
               
               <Button type="submit" className="btn-primary w-full">
-                שליחת הודעה
+                שליחת הודעה לוואטסאפ
               </Button>
             </form>
           </div>
