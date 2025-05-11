@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetClose } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
@@ -61,7 +60,7 @@ const AccessibilityStatement: React.FC<AccessibilityStatementProps> = ({ open, o
           <section className="space-y-2">
             <h3 className="text-lg font-semibold">פרטי רכז נגישות</h3>
             <p>שם: רכז נגישות</p>
-            <p>טלפון: 03-0000000</p>
+            <p>טלפון: 053-470-3003</p>
             <p>דוא"ל: takodigital35@gmail.com</p>
           </section>
 
