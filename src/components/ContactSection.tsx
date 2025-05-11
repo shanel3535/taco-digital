@@ -1,7 +1,6 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, Whatsapp } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
