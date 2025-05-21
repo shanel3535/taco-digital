@@ -2,7 +2,7 @@
 import { MessageSquare } from "lucide-react";
 
 const WhatsappButton = () => {
-  const phoneNumber = "+972534703003";
+  const phoneNumber = "0539901796";
   const message = "שלום, אני מעוניין לשמוע עוד על השירותים שלכם";
   
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
