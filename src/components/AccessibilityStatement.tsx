@@ -61,7 +61,7 @@ const AccessibilityStatement: React.FC<AccessibilityStatementProps> = ({ open, o
           <section className="space-y-2">
             <h3 className="text-lg font-semibold">פרטי רכז נגישות</h3>
             <p>שם: רכז נגישות</p>
-            <p>טלפון: 0539901796</p>
+            <p>טלפון: +972-53-470-3003</p>
             <p>דוא"ל: takodigital35@gmail.com</p>
           </section>
 

@@ -11,7 +11,7 @@ const ContactSection = () => {
     message: "",
   });
   
-  const phoneNumber = "0539901796";
+  const phoneNumber = "+972-53-470-3003";
   const message = "שלום, אני מעוניין לשמוע עוד על השירותים שלכם";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
@@ -66,7 +66,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <p className="text-sm text-taco-gray">טלפון</p>
-                  <p className="font-medium">0539901796</p>
+                  <p className="font-medium">+972-53-470-3003</p>
                 </div>
               </div>
               

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const CTA = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const phoneNumber = "0539901796";
+  const phoneNumber = "+972-53-470-3003";
   const message = "שלום, אני מעוניין לשיחת ייעוץ חינם";
   const quoteMessage = "שלום, אני מעוניין לקבל הצעת מחיר";
   
